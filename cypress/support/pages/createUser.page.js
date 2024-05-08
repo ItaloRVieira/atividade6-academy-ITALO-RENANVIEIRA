@@ -1,4 +1,4 @@
-export default class createUser {
+export default class createNewUser {
     inputName = '#name';
     inputEmail = '#email';
     buttSave = '[type="submit"]';

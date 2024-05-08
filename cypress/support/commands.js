@@ -1,6 +1,6 @@
-import createUser from "../support/createUser";
-const CreateUser = new createUser();
-import searchUser from "../support/searchUser";
+import createNewUser from "../support/pages/createUser.page"
+const createUser = new createNewUser();
+import searchUser from "./pages/searchUser.page";
 const SearchUser = new searchUser()
 
 Cypress.Commands.add('deleteUser', function(userId) {
@@ -17,7 +17,7 @@ Cypress.Commands.add('accessNewUserPage', function () {
 });
 
 Cypress.Commands.add('novoUsuario', function(name, email){
-  CreateUser.typeName(name);
-  CreateUser.typeEmail(email);
-  CreateUser.buttomSave();
+  createUser.typeName(name);
+  createUser.typeEmail(email);
+  createUser.buttomSave();
 });

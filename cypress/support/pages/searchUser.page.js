@@ -1,4 +1,4 @@
-import { expect } from "chai";
+// import { expect } from "chai";
 
 export default class searchUser {
     buttomSearch = 'input[placeholder="E-mail ou nome"]';
@@ -14,7 +14,12 @@ export default class searchUser {
     valuedetailsID = 'form > input[name="id"]'
     valuedetailsName = '#userName'
     valuedetailsEmail = '#userEmail'
+    deleteUser = '[data-test="userDataDelete"]'
+    editUser = '#userDataDetalhe'
 
+    selectSearch(){
+        cy.get(this.buttomSearch).should('be.enabled')
+    }
 
     typePesquisa(nome) {
         cy.get(this.buttomSearch).type(nome)
@@ -27,21 +32,19 @@ export default class searchUser {
     listFindUsers(nome, email) {
         cy.get(this.listUser).within(() => {
             cy.get(this.userName).should('have.text', "Nome: " + nome);
-            cy.get(this.userEmail).should(($element) => {
-                const text = $element.text();
-                const emailRegex = /E-mail:\s+(.+)/;
-                const match = text.match(emailRegex);
-                const displayedEmail = match ? match[1] : '';
-
-                const cleanedDisplayedEmail = displayedEmail.replace(/\.{3}$/, '');
-
-                const parts = cleanedDisplayedEmail.split('@');
-                const displayedEmailPrefix = parts[0];
-
-                expect(displayedEmailPrefix).to.equal(email.split('@')[0]);
-            });
+            cy.get(this.userEmail).should('have.text', "E-mail: " + email);
         });
     };
+
+    deleteUserList(){
+        cy.get(this.deleteUser).should('be.visible');
+    }
+
+    detailsUserList(){
+        cy.get(this.editUser).should('be.visible').within(function (){
+            cy.contains("Ver detalhes").should('be.visible')
+        })
+    }
 
     getNext() {
         cy.get(this.buttomNext).click()
