@@ -88,9 +88,7 @@ export default class searchUser {
             await cy.get(this.listUsers).children().each(($el) => {
                 verificarUsuario($el);
                 if (usuarioEncontrado == true) {
-
                     return false;
-
                 }
             });
 
