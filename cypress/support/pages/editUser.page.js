@@ -18,7 +18,7 @@ export default class EditUsers {
     };
 
     clickButtomSave(){
-        cy.get(this.buttSave).click()
+        cy.get(this.buttomSave).click()
     };
 
     getBack(){

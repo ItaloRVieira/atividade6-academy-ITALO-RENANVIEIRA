@@ -30,35 +30,35 @@ Given('foi acessada a lista de usuários', function () {
     cy.intercept('GET', 'https://rarocrud-80bf38b38f1f.herokuapp.com/api/v1/users', {
         statusCode: 200,
         fixture: '/listUsers.json'
-    }).as('repeatedUser');
+    }).as('listUser');
     cy.visit('https://rarocrud-frontend-88984f6e4454.herokuapp.com/users')
-    cy.wait('@repeatedUser')
+    cy.wait('@listUser')
 });
 
 When('visualizar a barra de pesquisa', function () { });
 
-When('pesquisado um email cadastrado', function () {
+When('pesquisar um email cadastrado', function () {
     const emailUser = this.usuarioEmail
     cy.intercept('GET', 'https://rarocrud-80bf38b38f1f.herokuapp.com/api/v1/search?value=' + emailUser).as('searchUserEmail');
     searchUsers.typePesquisa(emailUser);
     cy.wait('@searchUserEmail')
 });
 
-When('pesquisado um nome cadastrado', function () {
+When('pesquisar um nome cadastrado', function () {
     const nameUser = this.usuarioName
     cy.intercept('GET', 'https://rarocrud-80bf38b38f1f.herokuapp.com/api/v1/search?value=' + nameUser).as('searchUserName');
     searchUsers.typePesquisa(nameUser);
     cy.wait('@searchUserName')
 });
 
-When('pesquisado por um nome não cadastrado', function () {
+When('pesquisar por um nome não cadastrado', function () {
     const notUserList = faker.name.firstName().toLowerCase() + '@'
     cy.intercept('GET', 'https://rarocrud-80bf38b38f1f.herokuapp.com/api/v1/search?value=' + notUserList).as('searchNotUserName');
     searchUsers.typePesquisa(notUserList);
     cy.wait('@searchNotUserName')
 });
 
-When('pesquisado por um email não cadastrado', function () {
+When('pesquisar por um email não cadastrado', function () {
     cy.intercept('GET', 'https://rarocrud-80bf38b38f1f.herokuapp.com/api/v1/search?value=' + "iva_streich4yahoo.com").as('searchNotUserEmail');
     searchUsers.typePesquisa("iva_streich4yahoo.com");
     cy.wait('@searchNotUserEmail')

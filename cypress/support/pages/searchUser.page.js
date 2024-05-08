@@ -16,6 +16,7 @@ export default class searchUser {
     valuedetailsEmail = '#userEmail'
     deleteUser = '[data-test="userDataDelete"]'
     editUser = '#userDataDetalhe'
+    labelPaginacaoAtual = '#paginacaoAtual'
 
     selectSearch(){
         cy.get(this.buttomSearch).should('be.enabled')
@@ -45,16 +46,15 @@ export default class searchUser {
             cy.contains("Ver detalhes").should('be.visible')
         })
     }
-
-    getNext() {
+    clickNextPage(){
         cy.get(this.buttomNext).click()
     };
 
-    getPrevious() {
+    clickPreviousPage(){
         cy.get(this.buttomPrevious).click()
-    };
+    }
 
-    getNewUser() {
+    clickNewUser() {
         cy.get(this.buttomNewUser).click()
     }
 
@@ -113,6 +113,18 @@ export default class searchUser {
 
         await verificarTodasPaginas();
 
+    }
+
+    buttomNextPage(){
+        cy.get(this.buttomNext).should('be.enabled')
+    }
+
+    buttomNextPageDisabled(){
+        cy.get(this.buttomNext).should('be.disabled')
+    }
+
+    buttomPreviousPageDisabled(){
+        cy.get(this.buttomPrevious).should('be.disabled')
     }
 }
 
