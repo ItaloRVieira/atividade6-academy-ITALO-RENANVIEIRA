@@ -20,7 +20,6 @@ Before({ tags: '@cadastroUsuarioEdit' }, function () {
         }
     }).then(function (criarUsuario) {
         id = criarUsuario.body.id;
-        console.log(id)
         cy.wrap(id).as('usuarioId')
         cy.visit('https://rarocrud-frontend-88984f6e4454.herokuapp.com/users/' + id);
     })

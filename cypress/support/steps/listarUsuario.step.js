@@ -16,7 +16,7 @@ Given('que foi acessada a lista de usuários', function () {
 });
 When('a lista está vazia', function () {
     cy.intercept('GET', 'https://rarocrud-80bf38b38f1f.herokuapp.com/api/v1/users', [])
-    .as('listaVazia');
+        .as('listaVazia');
     cy.visit('https://rarocrud-frontend-88984f6e4454.herokuapp.com/users')
     cy.wait('@listaVazia')
 
@@ -64,7 +64,7 @@ Then('o botão "próxima" deve estar habilitado', function () {
     searchUsers.buttomNextPage()
 })
 
-Then('o botão próxima deve estar desabilitado', function () { 
+Then('o botão próxima deve estar desabilitado', function () {
     cy.contains(searchUsers.labelPaginacaoAtual, '3 de 3')
     searchUsers.buttomNextPageDisabled()
 })

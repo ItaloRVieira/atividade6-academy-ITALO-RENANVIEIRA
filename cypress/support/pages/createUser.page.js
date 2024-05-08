@@ -4,19 +4,19 @@ export default class createNewUser {
     buttSave = '[type="submit"]';
     buttomBack = 'a[href="/users"]';
 
-    typeName(nome){
+    typeName(nome) {
         cy.get(this.inputName).type(nome)
     };
 
-    typeEmail(email){
+    typeEmail(email) {
         cy.get(this.inputEmail).type(email)
     };
 
-    buttomSave(){
+    buttomSave() {
         cy.get(this.buttSave).click()
     };
 
-    getBack(){
+    getBack() {
         cy.get(this.buttomBack).click()
     };
 }

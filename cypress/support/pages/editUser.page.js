@@ -8,59 +8,59 @@ export default class EditUsers {
     buttomCancel = '[type="button"]';
     buttomBack = 'a[href="/users"]';
 
-    typeName(name){
+    typeName(name) {
         cy.get(this.inputName).clear().type(name)
     };
 
-    typeEmail(email){
+    typeEmail(email) {
 
         cy.get(this.inputEmail).clear().type(email)
     };
 
-    clickButtomSave(){
+    clickButtomSave() {
         cy.get(this.buttomSave).click()
     };
 
-    getBack(){
+    getBack() {
         cy.get(this.buttomBack).click()
     };
 
-    clickButtomEdit(){
+    clickButtomEdit() {
         cy.get(this.buttomEdit).click()
     };
 
-    clickButtomCancel(){
+    clickButtomCancel() {
         cy.get(this.buttomCancel).click()
     };
 
-    getButtomEdit(){
+    getButtomEdit() {
         cy.get(this.buttomEdit)
     };
 
-    InputName(){
+    InputName() {
         cy.get(this.inputName).should('be.disabled')
-        
+
     };
 
-    InputEmail(){
+    InputEmail() {
         cy.get(this.inputEmail).should('be.disabled')
     };
 
-    clearName(){
-        cy.get(this.inputName).clear() 
+    clearName() {
+        cy.get(this.inputName).clear()
     }
 
-    clearEmail(){
+    clearEmail() {
         cy.get(this.inputEmail).clear()
     }
 
-    disabledID(){
+    disabledID() {
         cy.get(this.inputId).should('be.disabled')
     }
 
-    valueInputID(id){
+    valueInputID(id) {
         cy.get(this.inputId).invoke('val').should('eq', id)
-  
+
     }
 
 }

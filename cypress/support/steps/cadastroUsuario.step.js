@@ -8,6 +8,7 @@ const name = faker.name.firstName() + 'abcd';
 Given('que foi acessada a tela de criação de usuário', function () {
     cy.accessNewUserPage();
 });
+
 When('informar nome válido', function () {
     createUser.typeName(name)
 });
@@ -22,18 +23,6 @@ When('clicar no botão salvar', function () {
     createUser.buttomSave()
 });
 
-Then('o usuário é criado', function () {
-    cy.intercept('POST', 'https://rarocrud-80bf38b38f1f.herokuapp.com/api/v1/users').as('newUser');
-    cy.wait('@newUser').then(function (intercept) {
-        const emailCriado = this.emailFaker;
-        expect(intercept.response.body.email).is.eq(emailCriado)
-    })
-});
-
-Then('é exibida uma mensagem informando que o usuário foi salvo', function () {
-    cy.contains("Usuário salvo com sucesso!").should('be.visible')
-});
-
 When('informar um email já cadastrado', function () {
     cy.visit('https://rarocrud-frontend-88984f6e4454.herokuapp.com/users')
     cy.intercept('GET', 'https://rarocrud-80bf38b38f1f.herokuapp.com/api/v1/users', {
@@ -44,41 +33,17 @@ When('informar um email já cadastrado', function () {
         cy.accessNewUserPage();
         createUser.typeEmail('iva_streich4@yahoo.com');
         cy.intercept('POST', 'https://rarocrud-80bf38b38f1f.herokuapp.com/api/v1/users')
-        .as('newUser');
+            .as('newUser');
 
     })
-});
-
-Then('usuário não é criado', function () {
-    cy.wait('@newUser').then(function (intercept) {
-        expect(intercept.response.statusCode).to.eq(422)
-    })
-});
-Then('é exibida uma mensagem informando que já existe email cadastrado', function () {
-    cy.contains("Este e-mail já é utilizado por outro usuário.").should('be.visible')
 });
 
 When('informar nome que contenha um caractere especial', function () {
-    createUser.typeName(name + '#');
-});
-
-Then('é exibida uma mensagem informando que o nome possui formato inválido', function () {
-    cy.contains("Formato do nome é inválido.").should('be.visible')
-});
-
-Then('não é feita requisição para criação de usuário', function () {
-    cy.intercept('POST', 'https://rarocrud-80bf38b38f1f.herokuapp.com/api/v1/users').as('newUser')
-        .then(function (intercept) {
-            expect(intercept).to.be.null;
-        })
+    createUser.typeName(name + "#@")
 })
 
 When('informar um email com formato inválido', function () {
     createUser.typeEmail(name + name);
-})
-
-Then('é exibida uma mensagem informando que o email possuí formato inválido', function () {
-    cy.contains("Formato de e-mail inválido").should('be.visible')
 });
 
 When('informar um nome com 100 caracteres', function () {
@@ -89,10 +54,6 @@ When('informar um nome com 100 caracteres', function () {
 When('informar nome com 101 caracteres', function () {
     const name101 = faker.random.alpha({ count: 101 });
     createUser.typeName(name101);
-});
-
-Then('é exibida uma mensagem informando que o limite de caracteres para nome é 100', function () {
-    cy.contains("Informe no máximo 100 caracteres para o nome").should('be.visible')
 });
 
 When('informar um email com 60 caracteres', function () {
@@ -106,13 +67,54 @@ When('informar um email com 61 caracteres', function () {
     createUser.typeEmail(email61);
 });
 
-Then('é exibida uma mensagem informando que o limite de caracteres para email é 60', function () {
-    cy.contains("Informe no máximo 60 caracteres para o e-mail").should('be.visible');
-});
-
 When('informar nome com 3 caracteres', function () {
     const name3 = faker.random.alpha({ count: 3 });
     createUser.typeName(name3);
+});
+
+Then('o usuário é criado', function () {
+    cy.intercept('POST', 'https://rarocrud-80bf38b38f1f.herokuapp.com/api/v1/users').as('newUser');
+    cy.wait('@newUser').then(function (intercept) {
+        const emailCriado = this.emailFaker;
+        expect(intercept.response.body.email).is.eq(emailCriado)
+    })
+});
+
+Then('é exibida uma mensagem informando que o usuário foi salvo', function () {
+    cy.contains("Usuário salvo com sucesso!").should('be.visible')
+});
+
+Then('usuário não é criado', function () {
+    cy.wait('@newUser').then(function (intercept) {
+        expect(intercept.response.statusCode).to.eq(422)
+    })
+});
+
+Then('é exibida uma mensagem informando que já existe email cadastrado', function () {
+    cy.contains("Este e-mail já é utilizado por outro usuário.").should('be.visible')
+});
+
+Then('é exibida uma mensagem informando que o nome possui formato inválido', function () {
+    cy.contains("Formato do nome é inválido.").should('be.visible')
+});
+
+Then('não é feita requisição para criação de usuário', function () {
+    cy.intercept('POST', 'https://rarocrud-80bf38b38f1f.herokuapp.com/api/v1/users').as('newUser')
+        .then(function (intercept) {
+            expect(intercept).to.be.null;
+        })
+});
+
+Then('é exibida uma mensagem informando que o email possuí formato inválido', function () {
+    cy.contains("Formato de e-mail inválido").should('be.visible')
+});
+
+Then('é exibida uma mensagem informando que o limite de caracteres para nome é 100', function () {
+    cy.contains("Informe no máximo 100 caracteres para o nome").should('be.visible')
+});
+
+Then('é exibida uma mensagem informando que o limite de caracteres para email é 60', function () {
+    cy.contains("Informe no máximo 60 caracteres para o e-mail").should('be.visible');
 });
 
 Then('é exibida uma mensagem informando que o nome deve conter no mínimo 4 caracteres', function () {
@@ -126,5 +128,3 @@ Then('é exibida uma mensagem informando que o campo nome é obrigatório', func
 Then('é exibida uma mensagem informando que o campo email é obrigatório', function () {
     cy.contains("O campo e-mail é obrigatório.").should('be.visible')
 });
-
-

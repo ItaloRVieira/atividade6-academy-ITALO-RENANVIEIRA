@@ -18,7 +18,7 @@ export default class searchUser {
     editUser = '#userDataDetalhe'
     labelPaginacaoAtual = '#paginacaoAtual'
 
-    selectSearch(){
+    selectSearch() {
         cy.get(this.buttomSearch).should('be.enabled')
     }
 
@@ -37,20 +37,20 @@ export default class searchUser {
         });
     };
 
-    deleteUserList(){
+    deleteUserList() {
         cy.get(this.deleteUser).should('be.visible');
     }
 
-    detailsUserList(){
-        cy.get(this.editUser).should('be.visible').within(function (){
+    detailsUserList() {
+        cy.get(this.editUser).should('be.visible').within(function () {
             cy.contains("Ver detalhes").should('be.visible')
         })
     }
-    clickNextPage(){
+    clickNextPage() {
         cy.get(this.buttomNext).click()
     };
 
-    clickPreviousPage(){
+    clickPreviousPage() {
         cy.get(this.buttomPrevious).click()
     }
 
@@ -58,11 +58,11 @@ export default class searchUser {
         cy.get(this.buttomNewUser).click()
     }
 
-    getNewUserPage(){
+    getNewUserPage() {
         cy.get(this.buttomNewUserPage).should('have.text', "Cadastre um novo usuário")
     }
 
-    viewuserDetails(id, nome, email){
+    viewuserDetails(id, nome, email) {
         cy.get(this.buttomDetailsUser).click()
         cy.get(this.valuedetailsID).should('have.value', id)
         cy.get(this.valuedetailsName).should('have.value', nome)
@@ -79,21 +79,21 @@ export default class searchUser {
             if (userName.includes(nome)) {
                 cy.wrap($el).as('usuarioEncontrado');
                 usuarioEncontrado = true;
-                return false; 
+                return false;
 
             }
         };
 
-        const percorrerUsuarios = async () => {        
+        const percorrerUsuarios = async () => {
             await cy.get(this.listUsers).children().each(($el) => {
                 verificarUsuario($el);
-                if (usuarioEncontrado == true){
-                    console.log(usuarioEncontrado)
+                if (usuarioEncontrado == true) {
+
                     return false;
-                    
+
                 }
             });
-            
+
         };
 
         const verificarTodasPaginas = async () => {
@@ -101,11 +101,11 @@ export default class searchUser {
                 await percorrerUsuarios();
                 if (usuarioEncontrado == false) {
                     cy.get(this.buttomNext).click();
-                    cy.wait(1000); 
-                
+                    cy.wait(1000);
+
                 }
             } while (usuarioEncontrado == false);
-            
+
             if (!usuarioEncontrado) {
                 throw new Error('Usuário não encontrado');
             }
@@ -115,15 +115,15 @@ export default class searchUser {
 
     }
 
-    buttomNextPage(){
+    buttomNextPage() {
         cy.get(this.buttomNext).should('be.enabled')
     }
 
-    buttomNextPageDisabled(){
+    buttomNextPageDisabled() {
         cy.get(this.buttomNext).should('be.disabled')
     }
 
-    buttomPreviousPageDisabled(){
+    buttomPreviousPageDisabled() {
         cy.get(this.buttomPrevious).should('be.disabled')
     }
 }

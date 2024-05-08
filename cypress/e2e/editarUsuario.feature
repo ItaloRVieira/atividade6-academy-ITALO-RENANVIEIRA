@@ -8,7 +8,7 @@ Cenário: Deve ser possível editar usuário informando nome e email válido
     E informar um email válido para alteração
     E clicar no botão salvar
     Então informações são editadas
-    E retorna para a lista de usuarios
+    E retorna para a pagina inicial
     E é exibida uma mensagem informando que o usuário foi editado com sucesso
 
 Cenário: Ao clicar em Editar, deve ser possível cancelar a edição ao clicar em Cancelar 
@@ -31,13 +31,13 @@ Cenário: Não deve ser possível editar usuário informando nome com caractere 
     Quando informar nome que contenha um caractere especial ao editar
     E clicar no botão salvar
     Então não é realizada requisição para editar usuário
-    E é exibida uma mensagem informando que o nome possui formato inválido
+    E exibe uma mensagem informando que o nome possui formato inválido
 
 Cenário: Não deve ser possível editar usuário informando email com formato inválido
     Dado que foi selecionado o botão editar usuário
     Quando informar email com formato inválido
     E clicar no botão salvar
-    Então é exibida uma mensagem informando que e email possui formato inválido
+    Então é exibida uma mensagem informando que email possui formato inválido
     E não é realizada requisição para editar usuário
 
 Cenário: Deve ser possível editar usuário informando nome com 100 caracteres
@@ -45,7 +45,7 @@ Cenário: Deve ser possível editar usuário informando nome com 100 caracteres
     Quando informar nome com 100 caracteres
     E clicar no botão salvar
     Então O nome é editado
-    E retorna para a lista de usuarios
+    E retorna para a pagina inicial
     E é exibida uma mensagem informando que o usuário foi editado com sucesso
 
 Cenário: Não deve ser possível editar usuário informando nome com 101 caracteres
@@ -60,7 +60,7 @@ Cenário: Deve ser possível editar usuário utilizando email com 60 caracteres
     Quando informar email com 60 caracteres
     E clicar no botão salvar
     Então O email é editado
-    E retorna para a lista de usuarios
+    E retorna para a pagina inicial
     E é exibida uma mensagem informando que o usuário foi editado com sucesso
 
 Cenário: Não deve ser possível editar usuário informando email com 61 caracteres
